@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+let height = Number( prompt('키를 입력하세요', 180) );
+let weight = Number( prompt('체중을 입력하세요', 80) );
+
+let bmi = getBMI(height, weight);
+
+document.body.innerText= '당신의 BMI는 '+bmi+' 입니다.';
+
+function getBMI(_h, _w){    //BMI 계산법
+    return _w / (_h/100) ** 2;
+}
+</script>
+</body>
+</html>
