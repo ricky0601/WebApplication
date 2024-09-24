@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div>
+        <h1>오늘의 할 일</h1>
+        <ul>
+            <li id="today_first">웹앱 수업 듣기</li>
+            <li>친구랑 점심 먹기</li>
+            <li class="highlight">과제 하기</li>
+        </ul>
+    </div>
+    
+    <div id="tomorrow">
+        <h1>내일의 할 일</h1>
+        <ul>
+            <li>비교과 참여하기</li>
+            <li>친구랑 저녁 먹기</li>
+            <li class="highlight">운동 하기</li>
+        </ul>
+    </div>
+</body>
+
+<script>
+$('div:first').css('background','yellow');
+$('#tomorrow .highlight').css('background','skyblue');
+</script>
+</html>

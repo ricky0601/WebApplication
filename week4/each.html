@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <style>
+        .wrap{
+            width: 50%;
+            margin: 0 auto;
+        }
+        body{
+            background-color: #E3E9FF;
+            padding: 64px;
+        }
+        #title{
+            background-color: #AF7EEB;
+            color: #FFF;
+            text-align: center;
+            font-size: 24px;
+            padding: 16px;
+        }
+        #list{
+            background-color: #fff;
+            list-style: none;
+            padding: 24px;
+        }
+        .item{
+            padding: 12px;
+            font-size: 24px;
+            color: #8898B9;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        ul{
+            padding: 0;
+        }
+        .done{
+            color: rgb(255, 168, 168);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1 id="title">오늘의 할 일</h1>
+        <ul id="list">
+            <li class="item">
+                <span class="icon">😴</span>
+                <span class="text">List 0</span>
+                <span class="check"> ❎</span>
+            </li>
+            <li class="item">
+                <span class="icon">😴</span>
+                <span class="text">List 1</span>
+                <span class="check"> ❎</span>
+            </li>
+            <li class="item">
+                <span class="icon">😴</span>
+                <span class="text">List 2</span>
+                <span class="check"> ❎</span>
+            </li>
+            <li class="item">
+                <span class="icon">😴</span>
+                <span class="text">List 3</span>
+                <span class="check"> ❎</span>
+            </li>
+            <li class="item">
+                <span class="icon">😴</span>
+                <span class="text">List 4</span>
+                <span class="check"> ❎</span>
+            </li>
+        </ul>
+
+    </div>
+</body>
+<script>
+
+    $('li').each(function(i, item){
+        let list = prompt('할일 입력')
+        $(item).find('.text').text(list)
+    })   //문서 구조가 결정되어 있을때
+
+
+    $('li').click(function(){
+        $(this).toggleClass('done')
+
+        if( $(this).hasClass('done')){
+            $(this).find('.icon').text('😎');
+            $(this).find('.check').text(' ✅')
+        }else{
+            $(this).find('.icon').text('😴');
+            $(this).find('.check').text(' ❎')
+        }
+    })
+    // for(let i in list){
+    //     $('li').eq(i).text(list[i])
+    // }   //데이터 개수가 정해져있을때
+</script>
+</html>
