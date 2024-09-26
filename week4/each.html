@@ -3,42 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>To-Do List</title>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <style>
-        .wrap{
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #F0F4F8;
+            font-family: 'Arial', sans-serif;
+            padding: 64px;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .wrap {
             width: 50%;
             margin: 0 auto;
-        }
-        body{
-            background-color: #E3E9FF;
-            padding: 64px;
-        }
-        #title{
-            background-color: #AF7EEB;
-            color: #FFF;
-            text-align: center;
-            font-size: 24px;
-            padding: 16px;
-        }
-        #list{
-            background-color: #fff;
-            list-style: none;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             padding: 24px;
         }
-        .item{
-            padding: 12px;
-            font-size: 24px;
-            color: #8898B9;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
+        #title {
+            background-color: #5E60CE;
+            color: #FFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
         }
-        ul{
+        #list {
+            background-color: #FFF;
+            list-style: none;
             padding: 0;
+            margin: 0;
         }
-        .done{
-            color: rgb(255, 168, 168);
+        .item {
+            padding: 16px;
+            font-size: 20px;
+            color: #4A4A4A;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+        .item:hover {
+            background-color: #F4F4F9;
+        }
+        .icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .check {
+            font-size: 20px;
+        }
+        .text {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease-in-out;
+        }
+        .text::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #BDBDBD;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+            transform-origin: left;
+        }
+        .done .text {
+            color: #BDBDBD;
+        }
+        .done .text::after {
+            transform: scaleX(1);
+        }
+        .done .icon {
+            color: #7C3AED;
+        }
+        .done .check {
+            color: #7C3AED;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #ff6347;
+            animation: explode 1.5s ease-out forwards;
+            opacity: 0;
+        }
+        .firework:nth-child(2) { background-color: #ffeb3b; }
+        .firework:nth-child(3) { background-color: #4caf50; }
+        .firework:nth-child(4) { background-color: #00bcd4; }
+        .firework:nth-child(5) { background-color: #e91e63; }
+        .firework:nth-child(6) { background-color: #9c27b0; }
+        .firework:nth-child(7) { background-color: #ff9800; }
+        .firework:nth-child(8) { background-color: #f44336; }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0;
+            animation: sparkle 0.8s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -72,30 +178,70 @@
                 <span class="check"> ❎</span>
             </li>
         </ul>
-
     </div>
-</body>
-<script>
 
-    $('li').each(function(i, item){
-        let list = prompt('할일 입력')
-        $(item).find('.text').text(list)
-    })   //문서 구조가 결정되어 있을때
+    <script>
+        $('li').each(function(i, item){
+            let list = prompt('할일 입력')
+            $(item).find('.text').text(list)
+        })
 
+        $('li').click(function(){
+            $(this).toggleClass('done')
 
-    $('li').click(function(){
-        $(this).toggleClass('done')
+            if( $(this).hasClass('done')){
+                $(this).find('.icon').text('😎');
+                $(this).find('.check').text(' ✅');
+                showFireworks();
+            }else{
+                $(this).find('.icon').text('😴');
+                $(this).find('.check').text(' ❎');
+            }
+        })
 
-        if( $(this).hasClass('done')){
-            $(this).find('.icon').text('😎');
-            $(this).find('.check').text(' ✅')
-        }else{
-            $(this).find('.icon').text('😴');
-            $(this).find('.check').text(' ❎')
+        function showFireworks() {
+            createFireworks(window.innerWidth - 100, window.innerHeight - 100);
+            createFireworks(100, window.innerHeight - 100);
         }
-    })
-    // for(let i in list){
-    //     $('li').eq(i).text(list[i])
-    // }   //데이터 개수가 정해져있을때
-</script>
+
+        function createFireworks(x, y) {
+            for (let i = 0; i < 16; i++) {
+                let firework = document.createElement('div');
+                firework.classList.add('firework');
+
+                let angle = (Math.random() * 360) * (Math.PI / 180);
+                let distance = Math.random() * 200 + 50;
+                let xMove = Math.cos(angle) * distance;
+                let yMove = Math.sin(angle) * distance;
+
+                firework.style.setProperty('--x', `${xMove}px`);
+                firework.style.setProperty('--y', `${yMove}px`);
+                firework.style.left = `${x}px`;
+                firework.style.top = `${y}px`;
+
+                document.body.appendChild(firework);
+
+                createSparkles(xMove + x, yMove + y);
+
+                setTimeout(() => {
+                    firework.remove();
+                }, 1500);
+            }
+        }
+
+        function createSparkles(x, y) {
+            for (let i = 0; i < 8; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 800);
+            }
+        }
+    </script>
+</body>
 </html>
