@@ -22,10 +22,22 @@
             background-color: #fff;
             border-top: 1px solid #ddd;
             width: 100vw;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
         }
         #msg{
             padding: 10px;
             width: calc(100vw - 80px);
+            border: 0;
+            outline: 0;
+            resize: none;
+            height: 100%;
+        }
+        #send{
+            width: 100px;
+            border: 0;
+            color: gray;
         }
         #chat{
             width: 100vw;
@@ -49,23 +61,27 @@
     <div id="chat">
     </div>
     <div class="bottom">
-        <input id="msg" />
+        <textarea name="text" id="msg"></textarea>
         <button id="send">전송</button>
     </div>
 </body>
 
 <script>
-$('#send').click(function(){
-    let msg = $('#msg').val();
-    let wrap_bubble = $('<div class="wrap_bubble"></div>')
-    let bubble_text = $('<div class="bubble"></div>');
-    bubble_text.text(msg);
+let text = $('#msg').val();
+    $('#send').click(function(){
+        if($('#msg').val() != ''){
+            let msg = $('#msg').val();
+            let wrap_bubble = $('<div class="wrap_bubble"></div>')
+            let bubble_text = $('<div class="bubble"></div>');
+            bubble_text.text(msg);
 
-   wrap_bubble.append(bubble_text);
-    $('#chat').append(wrap_bubble);
-    $('#msg').val('');
-    $('#chat').scrollTop($('#chat').prop('scrollHeight'));
-})
+            wrap_bubble.append(bubble_text);
+            $('#chat').append(wrap_bubble);
+            $('#msg').val('');
+            $('#chat').scrollTop($('#chat').prop('scrollHeight'));
+        }
+
+    })
 </script>
 
 </html>
