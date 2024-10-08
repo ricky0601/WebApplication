@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        body{
+            font-family: pretendard, 'Noto Sans KR', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #B2C7DA;
+        }
+        .bottom{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            width: 100vw;
+        }
+        #msg{
+            padding: 10px;
+            width: calc(100vw - 80px);
+        }
+        #chat{
+            width: 100vw;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        .wrap_bubble{
+            width: 100%;
+            float: right;
+        }
+        .bubble{
+            background-color: #F7E111;
+            padding: 10px 20px;
+            margin: 10px 20px;
+            border-radius: 10px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat">
+    </div>
+    <div class="bottom">
+        <input id="msg" />
+        <button id="send">전송</button>
+    </div>
+</body>
+
+<script>
+$('#send').click(function(){
+    let msg = $('#msg').val();
+    let wrap_bubble = $('<div class="wrap_bubble"></div>')
+    let bubble_text = $('<div class="bubble"></div>');
+    bubble_text.text(msg);
+
+   wrap_bubble.append(bubble_text);
+    $('#chat').append(wrap_bubble);
+    $('#msg').val('');
+    $('#chat').scrollTop($('#chat').prop('scrollHeight'));
+})
+</script>
+
+</html>

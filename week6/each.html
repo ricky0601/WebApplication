@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: rgb(253, 249, 255);
+            font-family: 'Arial', sans-serif;
+            padding: 64px;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .wrap {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+        #title {
+            background-color: hsla(282, 100%, 66%, 1);
+            color: #FFF;
+            text-align: center;
+            font-size: 28px;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        #list {
+            background-color: #FFF;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .item {
+            padding: 16px;
+            font-size: 20px;
+            color: #4A4A4A;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+        .item:hover {
+            background-color: #F4F4F9;
+        }
+        .icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .check {
+            font-size: 20px;
+        }
+        .text {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease-in-out;
+        }
+        .text::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #BDBDBD;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+            transform-origin: left;
+        }
+        .done .text {
+            color: #BDBDBD;
+        }
+        .done .text::after {
+            transform: scaleX(1);
+        }
+        .done .icon {
+            color: #7C3AED;
+        }
+        .done .check {
+            color: #7C3AED;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #ff6347;
+            animation: explode 1.5s ease-out forwards;
+            opacity: 0;
+        }
+        .firework:nth-child(2) { background-color: #ffeb3b; }
+        .firework:nth-child(3) { background-color: #4caf50; }
+        .firework:nth-child(4) { background-color: #00bcd4; }
+        .firework:nth-child(5) { background-color: #e91e63; }
+        .firework:nth-child(6) { background-color: #9c27b0; }
+        .firework:nth-child(7) { background-color: #ff9800; }
+        .firework:nth-child(8) { background-color: #f44336; }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* 반짝이는 효과 */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0;
+            animation: sparkle 0.8s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        .input-container {
+            position: relative;
+            margin: 30px auto;
+            width: 200px;
+        }
+
+        .input-container input[type="text"] {
+            font-size: 20px;
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            padding: 5px 0;
+            background-color: transparent;
+            outline: none;
+        }
+
+        .input-container .label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ccc;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-container input[type="text"]:focus ~ .label,
+        .input-container input[type="text"]:valid ~ .label {
+            top: -20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .input-container .underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background-color: #333;
+            transform: scaleX(0);
+            transition: all 0.3s ease;
+        }
+
+        .input-container input[type="text"]:focus ~ .underline,
+        .input-container input[type="text"]:valid ~ .underline {
+           transform: scaleX(1);
+        }
+        .button-container {
+            position: relative;
+            margin: 10px auto;
+            width: 200px;
+        }
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            height: 40px;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            background-size: 200% 200%;
+            background-color: #99fff7;
+            background-image: radial-gradient(
+                at 65% 89%,
+                hsla(249, 100%, 62%, 1) 0px,
+                transparent 50%
+                ),
+                radial-gradient(at 68% 76%, hsla(334, 100%, 74%, 1) 0px, transparent 50%),
+                radial-gradient(at 52% 39%, hsla(34, 100%, 71%, 1) 0px, transparent 50%),
+                radial-gradient(at 12% 37%, hsla(282, 100%, 66%, 1) 0px, transparent 50%),
+                radial-gradient(at 34% 9%, hsla(201, 100%, 63%, 1) 0px, transparent 50%),
+                radial-gradient(at 89% 18%, hsla(193, 100%, 74%, 1) 0px, transparent 50%),
+                radial-gradient(at 36% 37%, hsla(251, 100%, 65%, 1) 0px, transparent 50%);
+            background-position: left;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 3s;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+        background-position: right;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1 id="title">오늘의 할 일</h1>
+        <ul id="list">
+
+        </ul>
+        <div class="input-container">
+            <input type="text" id="input" required="">
+            <label for="input" class="label">메모하기</label>
+            <div class="underline"></div>
+        </div>
+        <div class="button-container">
+            <button id="btn_add" class="button">입력</button>
+        </div>
+    </div>
+
+    <script>
+        let count = 1;
+
+        $('#btn_add').click(function(){
+            if($('#input').val() != ""){
+                let newItem = $('<li class="item"></li>');
+                let newIcon = $('<span class="icon"></span>');
+                let newText = $('<span class="text">List 0</span>');
+                let newCheck = $('<span class="check"> ❎</span>');
+
+                let task = $('#input').val();
+                newText.text( task );
+                newIcon.append( count +"번째");
+                count += 1;
+                newItem.append( newIcon );
+                newItem.append( newText );
+                newItem.append( newCheck );
+
+                newItem.click(function(){
+                    $(this).toggleClass('done')
+
+                    if( $(this).hasClass('done')){
+                        $(this).find('.icon').text('😎');
+                        $(this).find('.check').text(' ✅');
+                        showFireworks();
+                    }else{
+                        $(this).find('.icon').text('😴');
+                        $(this).find('.check').text(' ❎');
+                    }
+                })
+
+                $('#list').append( newItem );
+            }else{
+                
+                $('#input').focus();
+            }
+        })
+    </script>
+</body>
+</html>
