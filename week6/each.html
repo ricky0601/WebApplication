@@ -269,16 +269,13 @@
                 newItem.append( newIcon );
                 newItem.append( newText );
                 newItem.append( newCheck );
-
+                $('#input').val('');
                 newItem.click(function(){
                     $(this).toggleClass('done')
 
                     if( $(this).hasClass('done')){
-                        $(this).find('.icon').text('😎');
                         $(this).find('.check').text(' ✅');
-                        showFireworks();
                     }else{
-                        $(this).find('.icon').text('😴');
                         $(this).find('.check').text(' ❎');
                     }
                 })
