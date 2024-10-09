@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>짭카오톡</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
@@ -22,7 +22,7 @@
             background-color: #fff;
             border-top: 1px solid #ddd;
             width: 100vw;
-            height: 80px;
+            height: 15vh;
             display: flex;
             justify-content: space-between;
         }
@@ -67,21 +67,34 @@
 </body>
 
 <script>
-let text = $('#msg').val();
+    $('#msg').on('input', function() {
+        if ($(this).val() !== '') {
+            $('#send').css('background', 'yellow');
+        }
+    });
+
+    $('#msg').on('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            $('#send').click();
+        }
+    });
+    
     $('#send').click(function(){
         if($('#msg').val() != ''){
             let msg = $('#msg').val();
             let wrap_bubble = $('<div class="wrap_bubble"></div>')
             let bubble_text = $('<div class="bubble"></div>');
-            bubble_text.text(msg);
+            let formattedMsg = msg.replace(/\n/g, '<br>');
+            bubble_text.html(formattedMsg);
 
             wrap_bubble.append(bubble_text);
             $('#chat').append(wrap_bubble);
             $('#msg').val('');
+            $('#send').css('background', '#F0F0F0');
             $('#chat').scrollTop($('#chat').prop('scrollHeight'));
         }
-
-    })
+    });
 </script>
 
 </html>
