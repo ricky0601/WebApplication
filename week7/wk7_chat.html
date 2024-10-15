@@ -41,7 +41,7 @@
         }
         #chat{
             width: 100vw;
-            height: calc(100vh - 40px);
+            height: calc(100vh - 15vh);
             overflow-y: auto;
         }
         .wrap_bubble{
@@ -55,6 +55,26 @@
             border-radius: 10px;
             float: right;
         }
+        .tag{
+            position: absolute;
+            display: none;
+            width: 100vw;
+            left: 0;
+            bottom: 15vh;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tag > div{
+            font-size: 14px;
+            padding: 12px 24px;
+            background-color: #FFF;
+            transition-duration: 1s;
+        }
+
+        .tag div:hover{
+            transition-duration: 1s;
+            background-color: rgb(224, 224, 224);
+        }
     </style>
 </head>
 <body>
@@ -64,9 +84,27 @@
         <textarea name="text" id="msg"></textarea>
         <button id="send">전송</button>
     </div>
+
+    <div class="tag">
+        <div>김한종</div>
+        <div>이문환</div>
+        <div>권오재</div>
+    </div>
 </body>
 
 <script>
+    $('.tag > div').click(function(){
+        let msg = $('#msg').val() + $(this).text();
+        $('#msg').val( msg );
+
+        $('#msg').focus();
+        $('.tag').hide();
+    })
+    $('#msg').keydown(function(e){
+        if(e.key == 'Enter'){
+            $('#send').click();
+        }
+    })
     $('#msg').on('input', function() {
         if ($(this).val() !== '') {
             $('#send').css('background', 'yellow');
@@ -78,7 +116,13 @@
             e.preventDefault();
             $('#send').click();
         }
+        if (e.key === '@'){
+            $('.tag').show();
+        }else{
+            $('.tag').hide();
+        }
     });
+
     $('#send').click(function(){
         if($('#msg').val() != ''){
             let msg = $('#msg').val();
@@ -88,11 +132,16 @@
             bubble_text.html(formattedMsg);
 
             wrap_bubble.append(bubble_text);
+            bubble_text.animate({'opacity' : 0.3} , 800).animate({'opacity' : 1} , 800)
+
             $('#chat').append(wrap_bubble);
             $('#msg').val('');
             $('#send').css('background', '#F0F0F0');
             $('#chat').scrollTop($('#chat').prop('scrollHeight'));
         }
+
+        $('#msg').focus();
+
     });
 </script>
 
