@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="layout.css">
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            <div class="header-img">
+                <img src="img/book1_02.png" alt="" width="1060px" height="40px">
+            </div>
+            <div class="header-top">
+                <div class="wrap_logo">
+                    <img src="img/book1_04.png" alt="">
+                </div>
+                <div class="wrap_search">
+                    <img src="img/book1_07.png" alt="">
+                </div>
+                <div class="wrap_button">
+                    <img src="img/book1_09.png" alt="">
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="menu-list">
+                    <img src="img/book1_14.png" alt="">
+                </div>
+                <div class="menu-list2">
+                    <img src="img/book1_17.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="left-aside">
+                <img src="img/book1_24.png" alt="" style="margin-top: 50px; float: right;">
+                <img src="img/book1_27.png" alt="" style="margin-top: 20px; float: right;">
+                <img src="img/book1_21.png" alt="" style="margin-top: 20px; float: right; margin-bottom: 30px;">
+            </div>
+            <div class="right-aside">
+                <form action="result.jsp" method="post">
+                    <table style="width: 800px; margin-top: 150px;">
+                        <tr>
+                            <th>도서명</th>
+                            <td><input type="text" name="bookName"></td>
+                        </tr>
+                        <tr>
+                            <th>출판사</th>
+                            <td><select name="publish" id="publish">
+                                <option value="한국출판">한국출판</option>
+                                <option value="영진사">영진사</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <th>가격</th>
+                            <td>
+                                <input type="radio" value="10000" name="price" checked="on" />10000
+                                <input type="radio" value="20000" name="price" />20000
+                                <input type="radio" value="30000" name="price" />30000
+                                <input type="radio" value="40000" name="price" />40000
+                                <input type="radio" value="50000" name="price" />50000
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>도서 구분</th>
+                            <td>
+                                <input type="checkbox" name="type" value="문학">문학
+                                <input type="checkbox" name="type" value="예술">예술
+                                <input type="checkbox" name="type" value="과학">과학
+                                <input type="checkbox" name="type" value="인문">인문
+                                <input type="checkbox" name="type" value="교양">교양
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>배송지</th>
+                            <td><input type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <img src="img/orderbtn.png" alt="" onclick="submit()">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>

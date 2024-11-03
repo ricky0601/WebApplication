@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/layout.css">
+</head>
+<body>
+    <video id="main-background" autoplay loop></video>
+    <div id="wrap">
+        <div class="title-area">
+            <p id="city"></p>
+        </div>
+    </div>
+<script>
+    let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid=ad3e49707d61b7ca1cf756c6c9b24537&units=metric';
+    $.getJSON(url, function(data){
+
+        console.log(data);
+        let city = data.name;
+        let weather = data.weather[0].main;
+        let temp = data.main.temp;
+        let temp_max = data.main.temp_max;
+        let temp_min = data.main.temp_min;
+        let icon = data.weather[0].icon;
+        let iconURL = icon+'.png';
+
+        if(icon === '04n'){
+            $('#icon').attr('src', iconURL)
+            $('#suggest').text('집에 있으세요');
+            $('#main-background').attr('src', 'assets/rain_phone.mp4');
+        }
+
+        $('#city').text(city)
+        $('#weather').text(weather);
+        $('#temp').text(temp);
+        $('#temp_minmax').html('최고 기온 : '+temp_max + '<br />' +'최저 기온 : '+temp_min);
+     })
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+
+    body{
+        background-color: rgb(227, 253, 255);
+        color: rgb(50, 50, 50);
+    }
+    #wrap{
+        width: 600px;
+        margin: 0 auto;
+        margin-top: 100px;
+        text-align: center;
+
+        #city{
+            font-size: 24px;
+        }
+
+        #weather{
+            font-size: 40px;
+        }
+
+        #temp{
+            font-size: 24px;
+        }
+
+        #temp_minmax{
+            font-size: 20px;
+            line-height: 1.5;
+        }
+    }
+</style>
+<body>
+    <div id="wrap">
+
+        <p id="city"></p>
+        <h1 id="weather"></h1>
+        <p id="temp"></p>
+        <p id="temp_minmax"></p>
+        <h3 id="suggest"></h3>
+        <img id="icon" width="120px">
+
+    </div>
+
+<script>
+
+    let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid=ad3e49707d61b7ca1cf756c6c9b24537&units=metric';
+
+    $.getJSON(url, function(data){
+
+        console.log(data);
+        let city = data.name;
+        let weather = data.weather[0].main;
+        let temp = data.main.temp;
+        let temp_max = data.main.temp_max;
+        let temp_min = data.main.temp_min;
+        let icon = data.weather[0].icon;
+        //let iconURL = 'http://openweathermap.org/img/wn/'+icon+'@2x.png'
+        let iconURL = icon+'.png';
+
+        if(icon === '04d'){
+            $('#icon').attr('src', iconURL)
+            $('#suggest').text('집에 있으세요');
+        }
+
+        $('#city').text(city)
+        $('#weather').text(weather);
+        $('#temp').text(temp);
+        $('#temp_minmax').html('최고 기온 : '+temp_max + '<br />' +'최저 기온 : '+temp_min);
+    })
+
+</script>
+    
+</body>
+</html>
