@@ -25,6 +25,9 @@ p{
         padding: 4vh;
         background: #ffffff8a;
         border-radius: 20px;
-        filter: blur(1px);
+        /* filter: blur(1px); */
+    }
+    .title-icon{
+        width: 20vw;
     }
 }
