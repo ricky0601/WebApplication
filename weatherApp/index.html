@@ -24,10 +24,11 @@
             <canvas id="myChart"></canvas>
         </div>
     </div>
-<script>
-
+<script type="module">
+    import config from './config/apikey.js';
+    let apiKey = config.apiKey;
     //오늘 날씨
-    let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid=ad3e49707d61b7ca1cf756c6c9b24537&units=metric';
+    let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
     $.getJSON(url, function(data){
 
         console.log(data);
@@ -54,7 +55,7 @@
      })
 
      //5일치 날씨
-     let furl = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.3236&lon=126.8219&appid=ad3e49707d61b7ca1cf756c6c9b24537&units=metric';
+     let furl = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
      $.getJSON(furl, function(data){
         console.log(data);
         
