@@ -7,17 +7,25 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/layout.css">
 </head>
 <body>
     <video id="main-background" autoplay loop muted></video>
     <div id="wrap">
         <div class="title-area">
-            <img class="title-icon" alt="weather icon">
             <p id="city"></p>
+            <div class="temp_area">
+              <p id="temp"></p>
+              <div class="minmax_area">
+                <p id="temp_max"></p>
+                <p id="temp_min"></p>
+              </div>
+            </div>
             <p id="weather"></p>
-            <p id="temp"></p>
-            <p id="temp_minmax"></p>
+            <img class="title-icon" alt="weather icon">
         </div>
         <div id="forecast"></div>
         <div>
@@ -30,71 +38,123 @@
     //오늘 날씨
     let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
     $.getJSON(url, function(data){
+      console.log(data);
+      let city = data.name;
+      let weather = data.weather[0].main;
+      let temp = Math.floor(data.main.temp);
+      let temp_max = Math.floor(data.main.temp_max);
+      let temp_min = Math.floor(data.main.temp_min);
+      let icon = data.weather[0].icon;
+      let iconURL = icon+'.png';
 
-        console.log(data);
-        let city = data.name;
-        let weather = data.weather[0].main;
-        let temp = data.main.temp;
-        let temp_max = data.main.temp_max;
-        let temp_min = data.main.temp_min;
-        let icon = data.weather[0].icon;
-        let iconURL = icon+'.png';
-
-
-        if(icon === '10d' || icon === '10n'){
-            $('#icon').attr('src', iconURL)
-            $('#suggest').text('집에 있으세요');
-            $('.title-icon').attr('src','assets/rain-icon.png')
-            $('#main-background').attr('src', 'assets/rain_phone.mp4');
-        }
-
-        $('#city').text(city)
-        $('#weather').text(weather);
-        $('#temp').text(temp);
-        $('#temp_minmax').html('최고 기온 : '+temp_max + '<br />' +'최저 기온 : '+temp_min);
-     })
-
-     //5일치 날씨
-     let furl = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
-     $.getJSON(furl, function(data){
-        console.log(data);
-        
-        for(let i=0; i<8 ; i++){
-            let weather = data.list[i].weather[0].main;
-            let temp = data.list[i].main.temp;
-            let dt = data.list[i].dt;
-
-            let time = moment(dt * 1000).format('HH:mm');
-            let dom = $('<div><div>');
-            dom.append('<h3>' + time + '</h3>');
-            dom.append('<p>' + weather + '</p>');
-            dom.append('<p>' + temp + '</p>');
-
-            $('#forecast').append(dom);
-        }
-    })
-</script>
-<script>
-    const ctx = document.getElementById('myChart');
-  
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+      if(icon === '10d' || icon === '10n'){
+        $('#suggest').text('집에 있으세요');
+        $('.title-icon').attr('src','assets/rain-icon.png')
+        $('#main-background').attr('src', 'assets/rain_phone.mp4');
+        //화면의 크기가 760px 이상일때 적용 할 코드
+        if (matchMedia("screen and (max-width: 479px)").matches) {
+          
         }
       }
-    });
-  </script>
+      if(icon === '04d' || icon === '04n'){
+          $('#suggest').text('집에 있으세요');
+          $('.title-icon').attr('src','assets/cloud.gif')
+          $('#main-background').attr('src', 'assets/cloud_tablet.mp4');
+        //화면의 크기가 760px 이상일때 적용 할 코드
+        if (matchMedia("screen and (max-width: 479px)").matches) {
+          $('#main-background').attr('src', 'assets/cloud_phone.mp4');
+        }
+      }
+
+      $('#city').text(city)
+      // $('#weather').text(weather);
+      $('#temp').html(temp+'<span style="font-size: 6vw">℃</span>');
+      $('#temp_max').html('<span style="font-weight: bold">↑</span> '+temp_max+'℃');
+      $('#temp_min').html('<span style="font-weight: bold">↓</span> '+temp_min+'℃');
+    })
+
+    //5일치 날씨
+    let furl = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
+     
+    const ctx = document.getElementById('myChart');
+    let weather_array = [];
+    let temp_array = [];
+    let time_array = [];
+    
+    $.getJSON(furl, function(data){
+      console.log(data);
+      
+      for(let i=0; i<40 ; i+=8){
+          let weather = data.list[i].weather[0].main;
+          let temp = data.list[i].main.temp;
+          let dt = data.list[i].dt;
+
+          weather_array.push(data.list[i].weather[0].main);
+          temp_array.push(data.list[i].main.temp);
+          time_array.push(moment(dt * 1000).format('MM월 DD일 , HH:mm'));
+
+          let time = moment(dt * 1000).format('MM월 DD일 , HH:mm');
+          let dom = $('<div><div>');
+          dom.append('<h3>' + time + '</h3>');
+          dom.append('<p>' + weather + '</p>');
+          dom.append('<p>' + temp + '</p>');
+
+          $('#forecast').append(dom);
+      }
+      console.log(weather_array)
+      console.log(temp_array)
+      console.log(time_array)
+  })
+
+  //chart
+  
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: time_array,
+      datasets: [{
+        label: '# of Votes',
+        data: temp_array,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      legend:{
+        display: false
+      },
+      title: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            display: false
+          }
+        }
+      },
+      elements: {
+        line: {
+            tension: 0
+        }
+      },
+      layout: {
+        padding: {
+            left: 50,
+            right: 50,
+            top: 0,
+            bottom: 0
+        }
+      }
+    }
+  });
+</script>
 </body>
 </html>
