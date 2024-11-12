@@ -7,15 +7,16 @@ p{
 }
 @media all and (max-width:479px) {
     body{
-        background-color: black;
+        color: #fbf2ff;
     }
     #wrap{
-        background: #ffffff8a;
+        background: #0000008a;
         height: 100%;
         padding: 5vh 5vw;
     }
     #main-background{
         overflow: hidden;
+        width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
@@ -26,6 +27,7 @@ p{
     .temp_area{
         display: flex;
         margin-top: 2vh;
+        justify-content: space-between;
     }
 
     #temp{
@@ -36,9 +38,35 @@ p{
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        margin-left: 12px;
     }
     .title-icon{
         width: 20vw;
+    }
+
+    #wrap_ad{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #suggest{
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .ex_info{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info_icon{
+        filter: invert(100%) sepia(0%) saturate(7472%) hue-rotate(62deg) brightness(98%) contrast(98%);
+    }
+
+    .info_content{
+        display: flex;
+        align-items: center;
     }
 }
