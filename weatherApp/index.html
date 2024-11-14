@@ -29,7 +29,10 @@
               <div class="ex_info">
                 <div class="wrap_wind info_content">
                   <img src="assets/wind.png" alt="" class="info_icon">
-                  풍향
+                  <div class="info_txt">
+                    <p id="txt_speed"></p>
+                    풍속
+                  </div>
                 </div>
                 <div class="wrap_humi info_content">
                   <img src="assets/humidity.png" alt="" class="info_icon">
@@ -48,136 +51,19 @@
               </div>
             </div>
         </div>
-        <div id="forecast"></div>
-        <div>
-            <canvas id="myChart"></canvas>
+        <div class="forecast_area">
+
+        </div>
+        <div id="click_card">
+          <div>
+            <canvas id="myChart" style="width: 100%;"></canvas>
+          </div>
         </div>
     </div>
     
     <video id="main-background" autoplay loop muted></video>
-<script type="module">
-    import config from './config/apikey.js';
-    let apiKey = config.apiKey;
-    //오늘 날씨
-    let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
-    $.getJSON(url, function(data){
-      console.log(data);
-      let city = data.name;
-      let weather = data.weather[0].main;
-      let temp = Math.floor(data.main.temp);
-      let humidity = data.main.humidity;
-      $('#txt_humidity').text(humidity+" %");
-      let temp_max = Math.floor(data.main.temp_max);
-      let temp_min = Math.floor(data.main.temp_min);
-      let icon = data.weather[0].icon;
-      let iconURL = icon+'.png';
 
-      if(icon === '01d' || icon === '01n'){
-          $('#suggest').text('오늘은 우산을 챙기지 않아도 돼요!');
-          $('#main-background').attr('src', 'assets/sunny_phone.mp4');
-        //화면의 크기가 760px 이상일때 적용 할 코드
-        if (matchMedia("screen and (max-width: 479px)").matches) {
-          $('#main-background').attr('src', 'assets/sunny_phone.mp4');
-        }
-      }
-      if(icon === '04d' || icon === '04n'){
-          $('#suggest').text('집에 있으세요');
-          $('#main-background').attr('src', 'assets/cloud_phone.mp4');
-        //화면의 크기가 760px 이상일때 적용 할 코드
-        if (matchMedia("screen and (max-width: 479px)").matches) {
-          $('#main-background').attr('src', 'assets/cloud_phone.mp4');
-        }
-      }
-      if(icon === '10d' || icon === '10n'){
-        $('#suggest').text('집에 있으세요');
-        $('#main-background').attr('src', 'assets/rain_phone.mp4');
-        //화면의 크기가 760px 이상일때 적용 할 코드
-        if (matchMedia("screen and (max-width: 479px)").matches) {
-          
-        }
-      }
-
-      $('#city').text(city)
-      // $('#weather').text(weather);
-      $('#temp').html(temp+'<span style="font-size: 6vw">℃</span>');
-      $('#temp_max').html('<span style="font-weight: bold">↑</span> '+temp_max+'℃');
-      $('#temp_min').html('<span style="font-weight: bold">↓</span> '+temp_min+'℃');
-    })
-
-    
-    
-
-  //chart
-  function loadChart() {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: time_array,
-            datasets: [{
-                label: 'Temperature',
-                data: temp_array,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: { display: false }
-                },
-                y: {
-                    beginAtZero: false,
-                    grid: { display: false }
-                }
-            },
-            elements: {
-                line: { tension: 0.4 } // 곡선 부드럽게 처리
-            }
-        }
-    });
-  }
-
-  //5일치 날씨
-  let furl = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.3236&lon=126.8219&appid='+apiKey+'&units=metric';
-     
-     const ctx = document.getElementById('myChart');
-     let weather_array = [];
-     let temp_array = [];
-     let time_array = [];
-  $.getJSON(furl, function(data){
-      console.log(data);
-      
-      for(let i=0; i<40 ; i+=8){
-          let weather = data.list[i].weather[0].main;
-          let temp = data.list[i].main.temp;
-          let dt = data.list[i].dt;
-          if(i == 0){
-            let rain_per = data.list[i].pop;
-            $('#txt_rain').text(rain_per + " %");
-          }
-
-          weather_array.push(data.list[i].weather[0].main);
-          temp_array.push(temp);
-          time_array.push(moment(dt * 1000).format('MM월 DD일 , HH:mm'));
-
-          let time = moment(dt * 1000).format('MM월 DD일 , HH:mm');
-          let dom = $('<div><div>');
-          // dom.append('<h3>' + time + '</h3>');
-          // dom.append('<p>' + weather + '</p>');
-          // dom.append('<p>' + temp + '</p>');
-
-          $('#forecast').append(dom);
-      }
-      console.log(weather_array)
-      console.log(temp_array)
-      console.log(time_array)
-      loadChart();
-  })
-</script>
+<script type="module" src="script/current.js"></script>
+<script type="module" src="script/forecast.js"></script>
 </body>
 </html>
