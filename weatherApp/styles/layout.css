@@ -59,7 +59,7 @@ body{
 #suggest{
     font-weight: bold;
     font-size: 20px;
-    align-content: center;
+    text-align: center;
 }
 
 .ex_info{
@@ -97,7 +97,9 @@ body{
         width: 95%;
     }
 }
-
+#click_area{
+    height: 20px;
+}
 #click_card {
     position: fixed;
     bottom: 0;
@@ -147,6 +149,9 @@ body{
 .wrap_maxmin{
     color: black;
     width: 100%;
+    img{
+        filter: drop-shadow(2px 4px 6px black);
+    }
 }
 
 
@@ -158,7 +163,9 @@ body{
     #city{
         text-align: center;
     }
-
+    #click_area{
+        height: 48px;
+    }
     .temp_area{
         display: flex;
         margin-top: 2vh;
@@ -179,6 +186,7 @@ body{
         height: 10vh;
         display: flex;
         align-items: center;
+        padding: 20px;
     }
 
     .forecast_area{
@@ -201,6 +209,12 @@ body{
         font-size: 20px;
         img{
             width: 10vw;
+        }
+    }
+    .wrap_maxmin{
+        img{
+            width: 50%;
+            filter: drop-shadow(2px 4px 6px black);
         }
     }
 }
