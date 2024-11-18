@@ -16,78 +16,64 @@ let minTemp_array = [];
 
 $.getJSON(furl, function(data){
     console.log(data);
-    for(let i=0; i<40 ; i++){
-        let temp = Math.floor(data.list[i].main.temp);
-        let icon = data.list[i].weather[0].icon;
-        let dt = data.list[i].dt;
-        if(i == 0){
+    for(let i=0; i<40 ; i++){   //40개 데이터 우선 추출
+        let temp = Math.floor(data.list[i].main.temp);  //기온
+        let icon = data.list[i].weather[0].icon;    //날씨 아이콘
+        let dt = data.list[i].dt;   //dateTime
+        weather_array.push(data.list[i].weather[0].main);   //날씨 배열
+        if(i == 0){ //메인화면에 필요한 강수확률
             let rain_per = data.list[i].pop * 100;
             $('#txt_rain').text(rain_per + " %");
         }
         let iconURL = 'https://openweathermap.org/img/wn/'+icon+'@2x.png';
         let time = moment(dt * 1000).format('HH:mm');
-        let time2 = moment(dt * 1000).format('dddd');
+        let week = moment(dt * 1000).format('dddd');
         let dom = $('<div style="width: 20%"><div>');
 
-        if( i < 5 ){
+        if( i < 5 ){    // 현재부터 3시간 간격 5개
             dom.append('<p>' + time + '</p>');
             dom.append('<img src="'+iconURL+'"/>');
             dom.append('<p>' + temp + ' ℃ </p>');
             $('.forecast_area').append(dom);
         }
-        weather_array.push(data.list[i].weather[0].main);
 
-        if(moment(data.list[0].dt * 1000).format('dddd') != time2){
-            if(moment(dt * 1000).format('HH:mm') === '15:00'){
-                console.log('최고온도'+ moment(dt *1000).format('dddd') + data.list[i].main.temp);
+        if(moment(data.list[0].dt * 1000).format('dddd') != week){  //요일이 같지 않을때 -> 다음날부터 시작
+            if(moment(dt * 1000).format('HH:mm') === '15:00'){  //15시에 최고 온도
+                console.log('최고온도 '+ moment(dt *1000).format('dddd') + data.list[i].main.temp);
                 maxTemp_array.push(data.list[i].main.temp);
             }
-            if(moment(dt * 1000).format('HH:mm') === '00:00'){
-                console.log('최저온도'+ moment(dt *1000).format('dddd')  + data.list[i].main.temp)
+            if(moment(dt * 1000).format('HH:mm') === '00:00'){  //00시에 최저 온도
+                console.log('최저온도 '+ moment(dt *1000).format('dddd')  + data.list[i].main.temp)
                 minTemp_array.push(data.list[i].main.temp);
             }
-
-            if(i % 8 == 7){
+            if(moment(dt * 1000).format('HH:mm') === '12:00'){  //12시 날씨를 그래프 적용
+                time_array.push(week);
                 temp_array.push(temp);
-                time_array.push(time2);
-                // maxTemp_array.push();
-                // minTemp_array.push();
-                // dom2.append('<p>' + Math.floor(maxTemp_array[maxTemp_array.length-1]) + ' ℃</p>');
-                // dom2.append('<p>' + Math.floor(minTemp_array[maxTemp_array.length-1]) + ' ℃</p>');
-                // $('#dataContainer').append(dom2);
             }
         }
     }
+    let dom2;
+    for(let i in maxTemp_array){
+        dom2 = $('<div class="wrap_maxmin"><div>');
+        if(maxTemp_array[i] === 'undefined'){
+            maxTemp_array[i] = minTemp_array[i];
+        }
+        if(minTemp_array[i] === 'undefined'){
+            minTemp_array[i] = maxTemp_array[i];
+        }
+        dom2.append('<p>' + maxTemp_array[i] + '</p>');
+        dom2.append('<p>' + minTemp_array[i] + '</p>');
+        $('#dataContainer').append(dom2);
+    }
+
     console.log(maxTemp_array)
     console.log(minTemp_array)
-
-    let daily_temp = [];
-    for(let i in maxTemp_array){
-        daily_temp.push(maxTemp_array[i]);
-        daily_temp.push(minTemp_array[i]);
-        let max_dom = $('<div style="color: black"><div>');
-        max_dom.append('<p>' + Math.floor(daily_temp[0]) + ' ℃</p>');
-        max_dom.append('<p>' + Math.floor(daily_temp[1]) + ' ℃</p>');
-        $('#max_temp').append(max_dom);
-
-    }
-    console.log(daily_temp)
-    // for(let i in maxTemp_array){
-    //     let max_dom = $('<div style="color: black"><div>');
-    //     max_dom.append('<p>' + Math.floor(maxTemp_array[i]) + ' ℃</p>');
-    //     $('#max_temp').append(max_dom);
-    // }
-    // for(let j in minTemp_array){
-    //     let min_dom = $('<div style="color: black"><div>');
-    //     min_dom.append('<p>' + Math.floor(minTemp_array[j]) + ' ℃</p>');
-    //     $('#min_temp').append(min_dom);
-    // }
     loadChart();
 })
 
 //chart
 function loadChart() {
-    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+    if (matchMedia("(min-width:1024px").matches) {
       $('#myChart').attr('style', 'height: 40vh; width: 100%');
     }
     const ctx = document.getElementById('myChart');

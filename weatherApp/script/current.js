@@ -15,8 +15,7 @@ $.getJSON(url, function(data){
   let temp_min = Math.floor(data.main.temp_min);
   let wind = data.wind.speed;
   $('#txt_speed').text(wind+" m/s");
-  //let icon = data.weather[0].icon;
-  let icon = '50d'
+  let icon = data.weather[0].icon;
 
   if(icon === '01d' || icon === '01n'){ //clear sky
     $('#suggest').text('오늘은 우산을 챙기지 않아도 돼요!');
