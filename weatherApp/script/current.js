@@ -15,31 +15,70 @@ $.getJSON(url, function(data){
   let temp_min = Math.floor(data.main.temp_min);
   let wind = data.wind.speed;
   $('#txt_speed').text(wind+" m/s");
-  let icon = data.weather[0].icon;
-  let iconURL = icon+'.png';
+  //let icon = data.weather[0].icon;
+  let icon = '50d'
 
   if(icon === '01d' || icon === '01n'){ //clear sky
-      $('#suggest').text('오늘은 우산을 챙기지 않아도 돼요!');
-      $('#main-background').attr('src', 'assets/sunny_phone.mp4');
-    //화면의 크기가 760px 이상일때 적용 할 코드
-    if (matchMedia("screen and (max-width: 479px)").matches) {
+    $('#suggest').text('오늘은 우산을 챙기지 않아도 돼요!');
+    $('#main-background').attr('src', 'assets/sunny_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
       $('#main-background').attr('src', 'assets/sunny_phone.mp4');
     }
   }
+  if(icon === '02d' || icon === '02n'){ //few clouds
+    $('#suggest').text('오늘은 우산을 챙기지 않아도 돼요!');
+    $('#main-background').attr('src', 'assets/sunny_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/sunny_phone.mp4');
+    }
+  }
+  if(icon === '03d' || icon === '03n'){ //scattered clouds
+    $('#suggest').text('빨래가 마르지 않아요 😥');
+    $('#main-background').attr('src', 'assets/cloud_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/cloud_tablet.mp4');
+    }
+  }
   if(icon === '04d' || icon === '04n'){ //broken clouds
-      $('#suggest').text('빨래가 마르지 않아요 😥');
-      $('#main-background').attr('src', 'assets/cloud_phone.mp4');
-    //화면의 크기가 760px 이상일때 적용 할 코드
-    if (matchMedia("screen and (max-width: 479px)").matches) {
-      $('#main-background').attr('src', 'assets/cloud_phone.mp4');
+    $('#suggest').text('빨래가 마르지 않아요 😥');
+    $('#main-background').attr('src', 'assets/cloud_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/cloud_tablet.mp4');
+    }
+  }
+  if(icon === '09d' || icon === '09n'){ //shower rain
+    $('#suggest').text('꼭 우산을 챙기세요!');
+    $('#main-background').attr('src', 'assets/rain_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/rain_tablet.mp4');
     }
   }
   if(icon === '10d' || icon === '10n'){ //rain
     $('#suggest').text('꼭 우산을 챙기세요!');
     $('#main-background').attr('src', 'assets/rain_phone.mp4');
-    //화면의 크기가 760px 이상일때 적용 할 코드
-    if (matchMedia("screen and (max-width: 479px)").matches) {
-      
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/rain_tablet.mp4');
+    }
+  }
+  if(icon === '11d' || icon === '11n'){ //thunderstorm
+    $('#suggest').text('외출을 조심하세요!');
+    $('#main-background').attr('src', 'assets/sunny_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/sunny_phone.mp4');
+    }
+  }
+  if(icon === '13d' || icon === '13n'){ //snow
+      $('#suggest').text('길이 미끄러워요!');
+      $('#main-background').attr('src', 'assets/snow_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/snow_tablet.mp4');
+    }
+  }
+  if(icon === '50d' || icon === '50n'){ //mist
+      $('#suggest').text('앞이 잘 보이지 않아요 😥');
+      $('#main-background').attr('src', 'assets/mist_phone.mp4');
+    if (matchMedia("(min-width:1024px) and (max-width:1279px)").matches) {
+      $('#main-background').attr('src', 'assets/mist_phone.mp4');
     }
   }
 

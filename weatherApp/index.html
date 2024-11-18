@@ -6,6 +6,7 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,36 +17,39 @@
     <div id="wrap">
         <div class="title-area">
             <p id="city"></p>
-            <div class="temp_area">
-              <p id="temp"></p>
-              <div class="minmax_area">
-                <p id="temp_max"></p>
-                <p id="temp_min"></p>
+            <div id="wrap_tablet">
+              <div class="temp_area">
+                <p id="temp"></p>
+                <div class="minmax_area">
+                  <p id="temp_max"></p>
+                  <p id="temp_min"></p>
+                </div>
               </div>
-            </div>
-            <p id="weather"></p>
-            <div id="wrap_ad">
-              <p id="suggest"></p>
-              <div class="ex_info">
-                <div class="wrap_wind info_content">
-                  <img src="assets/wind.png" alt="" class="info_icon">
-                  <div class="info_txt">
-                    <p id="txt_speed"></p>
-                    풍속
-                  </div>
+              <div id="wrap_ad">
+                <div class="suggest_wrap">
+                  <p id="suggest"></p>
                 </div>
-                <div class="wrap_humi info_content">
-                  <img src="assets/humidity.png" alt="" class="info_icon">
-                  <div class="info_txt">
-                    <p id="txt_humidity"></p>
-                    습도
+                <div class="ex_info">
+                  <div class="wrap_wind info_content">
+                    <img src="assets/wind.png" alt="" class="info_icon">
+                    <div class="info_txt">
+                      <p id="txt_speed"></p>
+                      풍속
+                    </div>
                   </div>
-                </div>
-                <div class="wrap_rain info_content">
-                  <img src="assets/rain.png" alt="" class="info_icon">
-                  <div class="info_txt">
-                    <p id="txt_rain"></p>
-                    강수 확률
+                  <div class="wrap_humi info_content">
+                    <img src="assets/humidity.png" alt="" class="info_icon">
+                    <div class="info_txt">
+                      <p id="txt_humidity"></p>
+                      습도
+                    </div>
+                  </div>
+                  <div class="wrap_rain info_content">
+                    <img src="assets/rain.png" alt="" class="info_icon">
+                    <div class="info_txt">
+                      <p id="txt_rain"></p>
+                      강수 확률
+                    </div>
                   </div>
                 </div>
               </div>
@@ -55,8 +59,13 @@
 
         </div>
         <div id="click_card">
+          <div id="click_area" style="height: 30px;"></div>
           <div>
             <canvas id="myChart" style="width: 100%;"></canvas>
+          </div>
+          <div id="dataContainer">
+            <div id="max_temp"></div>
+            <div id="min_temp"></div>
           </div>
         </div>
     </div>
@@ -65,5 +74,10 @@
 
 <script type="module" src="script/current.js"></script>
 <script type="module" src="script/forecast.js"></script>
+<script>
+  $('#click_area').click(function(){
+    $('#click_card').toggleClass('slide-up');
+  })
+</script>
 </body>
 </html>
