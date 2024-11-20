@@ -92,9 +92,8 @@ body{
     bottom: 0;
 
     img{
-        -webkit-filter: opacity(.5) drop-shadow(0 0 0 white);
-        filter: opacity(.5) drop-shadow(0 0 0 white);
-        width: 95%;
+        filter: invert(0.9);
+        width: 70%;
     }
 }
 #click_area{
@@ -150,7 +149,8 @@ body{
     color: black;
     width: 100%;
     img{
-        filter: drop-shadow(2px 4px 6px black);
+        filter: invert(0.7);
+        width: 70%;
     }
 }
 
@@ -192,6 +192,7 @@ body{
     .forecast_area{
         width: 90vw;
         height: unset;
+        padding-bottom: 7vw;
     }
 
     #wrap_tablet{
@@ -213,8 +214,7 @@ body{
     }
     .wrap_maxmin{
         img{
-            width: 50%;
-            filter: drop-shadow(2px 4px 6px black);
+            width: 40%;
         }
     }
 }

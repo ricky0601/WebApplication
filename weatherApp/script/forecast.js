@@ -19,11 +19,27 @@ $.getJSON(furl, function(data){
         let temp = Math.round(data.list[i].main.temp);  //기온
         let icon = data.list[i].weather[0].icon;    //날씨 아이콘
         let dt = data.list[i].dt;   //dateTime
+        let iconURL;
+        console.log(icon)
         if(i == 0){ //.title-area에 필요한 강수확률
             let rain_per = data.list[i].pop * 100;  //강수확률
             $('#txt_rain').text(rain_per + " %");
         }
-        let iconURL = 'https://openweathermap.org/img/wn/'+icon+'@2x.png';  //icon-url
+        if(icon === '01d' || icon === '01n' || icon === '02d' || icon === '02n'){   //sunny
+            iconURL = 'assets/sunny_icon.png';
+        }
+        if(icon === '03d' || icon === '03n' || icon === '04d' || icon === '04n' || icon === '50d' || icon === '50n'){   //cloud
+            iconURL = 'assets/cloud_icon.png';
+        }
+        if(icon === '09d' || icon === '09n' || icon === '10d' || icon === '10n'){   //rain
+            iconURL = 'assets/rain_icon.png';
+        }
+        if(icon === '11d' || icon === '11n'){   //thunder
+            iconURL = 'assets/thunder_icon.png';
+        }
+        if(icon === '13d' || icon === '13n'){   //snow
+            iconURL = 'assets/snow_icon.png';
+        }
         let time = moment(dt * 1000).format('HH:mm');   //시간
         let week = moment(dt * 1000).format('dddd');    //요일
         let dom = $('<div style="width: 20%"><div>');   //3시간 간격에 필요한 DOM
@@ -70,7 +86,7 @@ $.getJSON(furl, function(data){
 //chart
 function loadChart() {
     if (matchMedia("(min-width:1024px").matches) {
-      $('#myChart').attr('style', 'height: 40vh; width: 100%');
+      $('#myChart').attr('style', 'height: 40vh; width: 100%; padding-right: 90px; padding-left: 90px');
     }
     let ctx = document.getElementById('myChart');
     new Chart(ctx, {
@@ -161,8 +177,8 @@ function loadChart() {
             },
             layout: {
                 padding: {
-                    left: 10,
-                    right: 10,
+                    left: 40,
+                    right: 40,
                     top: 40,
                     bottom: 10
                 }
