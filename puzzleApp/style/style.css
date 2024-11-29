@@ -1,0 +1,34 @@
+.wrap_camera{
+    display: flex;
+    justify-content: center;
+
+    button{
+        z-index: 1;
+        position: absolute;
+        bottom: 5vh;
+        width: 62px;
+        height: 62px;
+        border-radius: 100%;
+        border: 0;
+        background: #d9d9d9;
+        /* cursor: pointer; */
+
+        img{
+            width: 40px;
+        }
+    }
+}
+
+#video_background{
+    background-color: #2F2F2F;
+    height: 100vh;
+    display: flex
+;
+    align-items: center;
+}
+
+#videoElement{
+	width: 100%;
+	height: 375px;
+	background-color: white;
+}

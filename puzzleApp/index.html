@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오이도 랜드마크로 맞춰보는 퍼즐</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d8a71f41a6218806a8ae9445b21ce0ee"></script>
+    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div id="map" style="width:100vw;height:100vh;"></div>
+    <div class="wrap_camera">
+        <button>
+            <img src="assets/test_camera.png" alt="">
+        </button>
+    </div>
+</body>
+<script>
+    $('button').click(function(){
+        location.href='video.html';
+    });
+</script>
+<script src="script/map.js"></script>
+</html>
