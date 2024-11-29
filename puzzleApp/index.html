@@ -4,24 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오이도 랜드마크로 맞춰보는 퍼즐</title>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d8a71f41a6218806a8ae9445b21ce0ee"></script>
     <link rel="stylesheet" href="style/reset.css">
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <div id="map" style="width:100vw;height:100vh;"></div>
-    <div class="wrap_camera">
-        <button>
-            <img src="assets/test_camera.png" alt="">
-        </button>
+    <div class="wrap_area">
+        <div id="left_area">
+            <h2>환영합니다!</h2>
+            <p>
+                오이도의 랜드마크를
+                <br>구경하고 퍼즐을 맞춰보세요.
+            </p>
+            <img src="assets/main_map.png" alt="" class="home_image">
+            <button class="slide_button">시작하기</button>
+        </div>
+        <div id="right_area">
+            <div class="wrap_title">
+                <h1>시흥,<br>오이도 지도</h1>
+            </div>
+            <div class="wrap_image">
+                <img src="assets/map.png" alt="">
+                <img src="assets/lighthouse_icon.png" alt="" class="main_icon light_icon" style="top: 90px; left: 31px;">
+                <img src="assets/museum_icon.png" alt="" class="main_icon museum_icon" style="top: 318px; left: 135px;">
+                <img src="assets/oasis_icon.png" alt="" class="main_icon oasis_icon" style="top: 258px; left: 0;">
+                <img src="assets/park_icon.png" alt="" class="main_icon park_icon" style="top: 147px; left: 214px;">
+                <img src="assets/tree_icon.png" alt="" class="main_icon tree_icon" style="top: 197px; left: 97px;">
+            </div>
+            <div class="wrap_text">
+                <p id="animate_text" style="margin-top: 50px; font-size: 20px; font-weight: 400;">랜드마크 이미지를 눌러주세요!</p>
+            </div>
+        </div>
     </div>
 </body>
 <script>
-    $('button').click(function(){
-        location.href='video.html';
+    $('.slide_button').click(function(){
+        $('.wrap_area').css('transform', 'translateX(-50%)');
+    });
+
+    $('.light_icon').click(function(){
+        localStorage.setItem('name', 'lighthouse');  // js localStorage
+        location.href='cameraInfo.html';
+    });
+
+    $('.museum_icon').click(function(){
+        localStorage.setItem('name', 'museum');
+        location.href='cameraInfo.html';
+    });
+
+    $('.oasis_icon').click(function(){
+        localStorage.setItem('name', 'oasis');
+        location.href='cameraInfo.html';
+    });
+
+    $('.park_icon').click(function(){
+        localStorage.setItem('name', 'park');
+        location.href='cameraInfo.html';
+    });
+
+    $('.tree_icon').click(function(){
+        localStorage.setItem('name', 'tree');
+        location.href='cameraInfo.html';
     });
 </script>
-<script src="script/map.js"></script>
 </html>

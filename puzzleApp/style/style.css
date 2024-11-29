@@ -1,3 +1,88 @@
+.wrap_area{
+    display: flex;
+    flex-direction: row;
+    width: 200vw;
+    height: 100%;
+    align-items: center;
+    transition: transform 0.5s ease; /* 슬라이드 애니메이션 */
+    overflow: hidden;
+    position: fixed;
+}
+
+.wrap_area #left_area, .wrap_area #right_area{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.wrap_area .wrap_title{
+    margin-left: 40px;
+    width: 100%;
+}
+
+.wrap_area #right_area h1{
+    text-align: left;
+    font-family: 'SangSangRock';
+    font-size: 40px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.wrap_area .home_image{
+    margin-top: 25px;
+}
+
+.wrap_area .wrap_image{
+    position: relative;
+    margin-top: 28px;
+
+    .main_icon{
+        position: absolute;
+    }
+}
+
+ #animate_text {
+    font-size: 30px;
+    display: inline-block;
+    position: relative;
+    animation: bounce 1.5s ease infinite;
+}
+
+@keyframes bounce {
+    0% {
+        top: 0;
+    }
+    20% {
+        top: -20px;
+    }
+    40% {
+        top: 0;
+    }
+    60% {
+        top: -15px;
+    }
+    80% {
+        top: 0;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+.wrap_area .slide_button{
+    margin-top: 80px;
+    color: white;
+    font-size: 18px;
+    font-weight: lighter;
+    width: 255px;
+    height: 50px;
+    border-radius: 30px;
+    border: 0;
+    background-color: #93AB81;
+}
+
 .wrap_camera{
     display: flex;
     justify-content: center;
@@ -17,18 +102,4 @@
             width: 40px;
         }
     }
-}
-
-#video_background{
-    background-color: #2F2F2F;
-    height: 100vh;
-    display: flex
-;
-    align-items: center;
-}
-
-#videoElement{
-	width: 100%;
-	height: 375px;
-	background-color: white;
 }

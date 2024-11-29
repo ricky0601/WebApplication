@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'SangSangRock';
+    src: url('https://cdn.jsdelivr.net/gh/fontbee/font@main/Sangsangfont/SangSangRockOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body{
+    margin: 0;
+    background-color: #D3E4F1;
+    overflow: hidden;
+
+    color: #2D443F;
+}
+
+h1, p{
     margin: 0;
 }
