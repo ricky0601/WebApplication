@@ -9,10 +9,10 @@ body{
     margin: 0;
     background-color: #D3E4F1;
     overflow: hidden;
-
+    font-family: "Nanum Gothic", serif;
     color: #2D443F;
 }
 
-h1, p{
+h1, p, h2{
     margin: 0;
 }

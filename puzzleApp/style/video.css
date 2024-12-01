@@ -27,3 +27,8 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+#video_background #video_button{
+    position: absolute;
+    bottom: 63px;
+}

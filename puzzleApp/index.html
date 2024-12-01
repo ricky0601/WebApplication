@@ -7,6 +7,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style/reset.css">
     <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="wrap_area">
@@ -38,12 +41,12 @@
     </div>
 </body>
 <script>
-    $('.slide_button').click(function(){
+    $('.slide_button').click(function(){    //버튼 클릭시 슬라이드 효과
         $('.wrap_area').css('transform', 'translateX(-50%)');
     });
 
     $('.light_icon').click(function(){
-        localStorage.setItem('name', 'lighthouse');  // js localStorage
+        localStorage.setItem('name', 'lighthouse');  // js localStorage 사용
         location.href='cameraInfo.html';
     });
 
