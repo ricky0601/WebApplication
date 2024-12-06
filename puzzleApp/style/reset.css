@@ -7,12 +7,17 @@
 
 body{
     margin: 0;
-    background-color: #D3E4F1;
+    background-color: #F7F7F7;
     overflow: hidden;
     font-family: "Nanum Gothic", serif;
-    color: #2D443F;
+    color: #424242;
 }
 
-h1, p, h2{
+h1, p, h2, ul, li, h3{
     margin: 0;
+    padding: 0;
+}
+
+ul, li{
+    list-style: none;
 }

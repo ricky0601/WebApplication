@@ -125,7 +125,13 @@ $(document).ready(function() {
     $('.backBtn').click(function(){
         $('.flip-card-inner').css('transform','rotateY(180deg)');
         $('.backBtn').text('퍼즐 맞추기');
-        $('.backBtn').attr('onclick','location.href="puzzle.html"');
+
+        let array = JSON.parse(localStorage.getItem("array"));
+        if(!array.includes(saveName)){
+            $('.backBtn').attr('onclick','location.href="puzzle.html"');
+        }else{
+            $('.backBtn').attr('onclick','location.href="puzzle.html"');
+        }
     });
 });
 </script>

@@ -15,7 +15,7 @@
   <span id="text_name"></span>
 <!-- <button type="button" onclick="init()">Start</button> -->
 <div id="webcam-container"></div>
-<div id="label-container"></div>
+<div id="label-container" style="display: none;"></div>
 <button id="video_button" style="display: none;">카드 확인하기</button>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -64,7 +64,9 @@
 
     // Convenience function to setup a webcam
     const flip = true; // whether to flip the webcam
-    webcam = new tmImage.Webcam(1000, 1000, flip); // width, height, flip
+    webcam = new tmImage.Webcam(295, 545, flip); // width, height, flip
+    $('#webcam-container').width('295');
+    $('#webcam-container').height('545');
     await webcam.setup(); // request access to the webcam
     await webcam.play();
     window.requestAnimationFrame(loop);

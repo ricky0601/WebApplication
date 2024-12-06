@@ -9,8 +9,8 @@
 }
 
 .flip-card {
-    width: 317px;
-    height: 608px;
+    width: 320px;
+    height: 575px;
     perspective: 1000px;
     display: flex;
     justify-content: center;
@@ -105,16 +105,16 @@
 }
 
 #wrap_card .backBtn{
-    width: 255px;
+    color: #424242;
+    width: 320px;
     height: 50px;
-    border: 0;
-    border-radius: 30px;
-    background-color: #A58250;
+    border: solid 1px #4C77FF;
+    border-radius: 10px;
+    background-color: #FFFFFF;
     font-size: 18px;
-    font-weight: bold;
-    color: white;
+    font-weight: 500;
     position: absolute;
-    bottom: -60px;
+    bottom: -82px;
 }
 
 #img_front{
