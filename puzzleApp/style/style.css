@@ -3,8 +3,7 @@
     flex-direction: row;
     width: 200vw;
     height: 100%;
-    align-items: center;
-    transition: transform 0.5s ease; /* 슬라이드 애니메이션에 사용 */
+    transition: transform 0.5s ease;
     overflow: hidden;
     position: fixed;
 
@@ -21,20 +20,32 @@
 
 .wrap_area #left_area, .wrap_area #right_area{
     width: 100vw;
+}
+
+.wrap_area #left_area{
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    height: 100%;
     justify-content: center;
-}
-
-.wrap_area #left_area{
     background-color: #4C77FF;
+    height: 100vh;
 }
 
 .wrap_area #right_area{
     background-color: #F7F7F7;
+    position: relative;
+    overflow: scroll;
+    padding-bottom: 43px;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+}
+
+.wrap_area .wrap_wrap_title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .wrap_area .wrap_title{
@@ -75,13 +86,13 @@
         top: 0;
     }
     20% {
-        top: -20px;
+        top: -10px;
     }
     40% {
         top: 0;
     }
     60% {
-        top: -15px;
+        top: -5px;
     }
     80% {
         top: 0;
@@ -107,13 +118,19 @@
     border-radius: 10px;
     display: flex;
     border: solid 2px #4c77ff00;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 #right_area li .img_wrap{
     display: flex;
     align-items: center;
-    padding-left: 15px;
+    padding-left: 10px;
+    width: calc(100% - 70%);
+    justify-content: center;
+}
+
+#right_area li .text_area{
+    width: 70%;
 }
 
 #right_area .submitButton{
@@ -125,7 +142,8 @@
     color: #C6C6C6;
     font-weight: 500;
     font-size: 18px;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 43px;
 }
 
 #right_area .li_selected{
@@ -158,6 +176,37 @@
     text-align: left;
     span{
         font-size: 10px;
+    }
+}
+
+#right_area .text_area .landmark_point{
+    text-align: left;
+
+    .star_rating {
+        width: 100%; 
+        box-sizing: border-box; 
+        display: inline-flex; 
+        float: left;
+        flex-direction: row; 
+        justify-content: flex-start;
+    }
+    .star_rating .star {
+        width: 21px; 
+        height: 21px; 
+        display: inline-block; 
+        background: url('../assets/starN.png') no-repeat; 
+        background-size: 100%; 
+        box-sizing: border-box; 
+        margin-right: 2px;
+    }
+    .star_rating .star.on {
+        width: 21px; 
+        height: 21px;
+        display: inline-block; 
+        background: url('../assets/star.png') no-repeat;
+        background-size: 100%; 
+        box-sizing: border-box; 
+        margin-right: 2px;
     }
 }
 
